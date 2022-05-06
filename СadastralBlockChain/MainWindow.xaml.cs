@@ -89,8 +89,8 @@ namespace СadastralBlockChain
         private void WriteBlock_Click(object sender, RoutedEventArgs e)
         {
             BlockChain.Add(new Block(BlockChain.Last(), _currentBlockData, _cred));
+            File.Delete(_filePath);
             using var fileStream = File.Open(_filePath, FileMode.OpenOrCreate);
-            fileStream.Flush(true);
             new DataContractSerializer(typeof(List<Block>))
                 .WriteObject(fileStream, BlockChain);
             fileStream.Close();

@@ -50,8 +50,8 @@ namespace СadastralBlockChain
                     }, Credential)
                 };
 
+                File.Delete(saveFileDialog.FileName);
                 using var fileStream = File.Open(saveFileDialog.FileName, FileMode.OpenOrCreate);
-                fileStream.Flush(true);
                 new DataContractSerializer(typeof(List<Block>))
                     .WriteObject(fileStream, obj);
                 fileStream.Close();
