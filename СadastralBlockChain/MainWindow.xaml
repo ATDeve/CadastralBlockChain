@@ -1,0 +1,28 @@
+﻿<Window x:Class="СadastralBlockChain.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:СadastralBlockChain"
+        xmlns:components="clr-namespace:СadastralBlockChain.Components"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
+    <Grid Style="{DynamicResource FontStyle}" Background="#E1F5FE">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="197*"/>
+            <ColumnDefinition Width="443*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="BlockList" Margin="10,10,10,58" Grid.Column="0" SelectionChanged="BlockList_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Time}"></TextBlock>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <components:LandPanel x:Name="LandPanel" Grid.Column="1" Margin="10,10,10,34" Loaded="LandPanel_Loaded" Grid.ColumnSpan="2"></components:LandPanel>
+        <Button x:Name="WriteBlock" Content="Записать блок" HorizontalAlignment="Center" Margin="0,0,0,10" Width="140" Click="WriteBlock_Click" Height="19" VerticalAlignment="Bottom"/>
+        <Button x:Name="ValidateBlocks" Content="Проверить" HorizontalAlignment="Center" Margin="0,0,0,34" Width="140" Height="19" VerticalAlignment="Bottom" Click="ValidateBlocks_Click"/>
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+﻿<Window x:Class="СadastralBlockChain.OpenOrNewDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:СadastralBlockChain"
+        mc:Ignorable="d"
+        Title="OpenOrNewDialog" Height="216" Width="367" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Введите подпись:"/>
+        <TextBox x:Name="CredentialText" TextWrapping="Wrap" Width="325"/>
+        <Button x:Name="OpenButton" Content="Открыть" Height="30" Margin="10" Click="OpenButton_Click"/>
+        <Grid Margin="10 30 10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" x:Name="XText"></TextBox>
+            <TextBlock Grid.Column="1" TextAlignment="Center">x</TextBlock>
+            <TextBox Grid.Column="2" x:Name="YText"></TextBox>
+        </Grid>
+        <Button x:Name="NewButton" Content="Новый" Height="30" Margin="10" Click="NewButton_Click"/>
+
+    </StackPanel>
+</Window>

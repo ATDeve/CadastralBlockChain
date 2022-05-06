@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="СadastralBlockChain.Components.LandBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:СadastralBlockChain.Components"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="holderRect" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)">
+                            <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="Black">
+                                <EasingColorKeyFrame.EasingFunction>
+                                    <QuinticEase EasingMode="EaseInOut"/>
+                                </EasingColorKeyFrame.EasingFunction>
+                            </EasingColorKeyFrame>
+                        </ColorAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="holderRect" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)">
+                            <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#00000000">
+                                <EasingColorKeyFrame.EasingFunction>
+                                    <QuinticEase EasingMode="EaseInOut"/>
+                                </EasingColorKeyFrame.EasingFunction>
+                            </EasingColorKeyFrame>
+                        </ColorAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid x:Name="grid">
+        <Grid x:Name="holder" Visibility="Collapsed" MouseLeftButtonUp="holder_MouseLeftButtonUp">
+            <Rectangle x:Name="holderRect" Stroke="#00000000" StrokeThickness="3" Fill="White"></Rectangle>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock>
+                    <TextBlock Text="Кадастровый номер "></TextBlock>
+                    <TextBlock Text="{Binding Path=CadastralNumber}"></TextBlock>
+                </TextBlock>
+                <TextBlock Text="{Binding Path=LandTypeString}"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+    
+</UserControl>
