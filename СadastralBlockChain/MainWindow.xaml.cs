@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -43,8 +42,7 @@ namespace СadastralBlockChain
 
         List<Block>? GetData(string path)
         {
-            return new DataContractSerializer(typeof(List<Block>))
-                .ReadObject(File.OpenRead(path)) as List<Block>;
+            return JsonConvert.DeserializeObject<List<Block>>(File.ReadAllText(path));
         }
 
         void LoadList()
@@ -89,11 +87,8 @@ namespace СadastralBlockChain
         private void WriteBlock_Click(object sender, RoutedEventArgs e)
         {
             BlockChain.Add(new Block(BlockChain.Last(), _currentBlockData, _cred));
-            File.Delete(_filePath);
-            using var fileStream = File.Open(_filePath, FileMode.OpenOrCreate);
-            new DataContractSerializer(typeof(List<Block>))
-                .WriteObject(fileStream, BlockChain);
-            fileStream.Close();
+            File.WriteAllText(_filePath, JsonConvert.SerializeObject(BlockChain));
+
             LoadList();
         }
 

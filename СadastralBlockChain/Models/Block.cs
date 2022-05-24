@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,38 +8,37 @@ namespace СadastralBlockChain.Models;
 /// <summary>
 /// Блок из цепочки блоков.
 /// </summary>
-[DataContract]
 public class Block
 {
     /// <summary>
     /// Момент создания блока.
     /// </summary>
-    [DataMember]
+    [JsonProperty]
     public DateTime CreatedOn { get; private set; }
 
     /// <summary>
     /// Хеш блока.
     /// </summary>
-    [DataMember]
+    [JsonProperty]
     public string Hash { get; private set; }
 
     /// <summary>
     /// Хеш предыдущего блока.
     /// </summary>
-    [DataMember]
+    [JsonProperty]
     public string PreviousHash { get; private set; }
 
     /// <summary>
     /// Данные блока.
     /// </summary>
-    [IgnoreDataMember]
+    [JsonIgnore]
     public BlockData Data => JsonConvert.DeserializeObject<BlockData>(_dataString);
 
     /// <summary>
     /// Данные блока.
     /// </summary>
-    [DataMember]
-    private readonly string _dataString;
+    [JsonProperty]
+    private string _dataString;
 
     /// <summary>
     /// Создать экземпляр блока.
@@ -65,6 +63,12 @@ public class Block
         CreatedOn = DateTime.Now.ToUniversalTime();
         _dataString = JsonConvert.SerializeObject(data);
         Hash = Sha512(_dataString + Sha512(cred));
+    }
+
+    [JsonConstructor]
+    private Block()
+    {
+
     }
 
     private string Sha512(string input)

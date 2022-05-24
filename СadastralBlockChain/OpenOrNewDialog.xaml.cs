@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Windows;
 using СadastralBlockChain.Models;
 
@@ -40,7 +40,7 @@ namespace СadastralBlockChain
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                var obj = new List<Models.Block>()
+                var obj = new List<Block>()
                 {
                     new(new BlockData
                     {
@@ -50,12 +50,7 @@ namespace СadastralBlockChain
                     }, Credential)
                 };
 
-                File.Delete(saveFileDialog.FileName);
-                using var fileStream = File.Open(saveFileDialog.FileName, FileMode.OpenOrCreate);
-                new DataContractSerializer(typeof(List<Block>))
-                    .WriteObject(fileStream, obj);
-                fileStream.Close();
-
+                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(obj));
 
 
                 new MainWindow(Credential, saveFileDialog.FileName).Show();
