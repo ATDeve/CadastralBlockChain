@@ -8,6 +8,4 @@ public class BlockListModel
     public DateTime CreatedAt { get; set; }
     public BlockData Block { get; set; }
     public bool IsNew { get; set; }
-
-    public string Cred { get; set; }
 }

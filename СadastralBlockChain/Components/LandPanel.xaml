@@ -6,14 +6,6 @@
              xmlns:local="clr-namespace:СadastralBlockChain.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" x:Name="WorkPanel"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="grid" >
-
-        </Grid>
-        <TextBlock x:Name="CredTextBox" Grid.Row="1"></TextBlock>
-    </Grid>
+    
+        <Grid x:Name="grid" ></Grid>
 </UserControl>

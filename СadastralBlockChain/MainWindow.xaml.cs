@@ -3,11 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using СadastralBlockChain.Components;
 using СadastralBlockChain.Models;
 using Block = СadastralBlockChain.Models.Block;
 
@@ -23,12 +20,10 @@ namespace СadastralBlockChain
         private List<Block> BlockChain;
 
         private BlockData _currentBlockData;
-        private readonly string _credHashed;
 
         public MainWindow(string cred, string filePath)
         {
             _cred = cred;
-            _credHashed = Convert.ToBase64String(SHA512.HashData(Encoding.UTF8.GetBytes(_cred)));
             _filePath = filePath;
             InitializeComponent();
 
@@ -49,20 +44,18 @@ namespace СadastralBlockChain
         {
             BlockList.ItemsSource = BlockChain.Select(x => new BlockListModel
             {
-                CreatedAt = x.CreatedOn,
+                CreatedAt = x.CreatedOn.ToLocalTime(),
                 IsNew = false,
                 Block = x.Data,
-                Cred = _cred
             }).Append(new BlockListModel
             {
                 IsNew = true,
-                Cred = _credHashed
             });
         }
 
-        void UpdateBlock(BlockData data, string cred, bool isReadOnly)
+        void UpdateBlock(BlockData data, bool isReadOnly)
         {
-            LandPanel.LoadPanel(data, cred, isReadOnly);
+            LandPanel.LoadPanel(data, isReadOnly);
         }
 
         private void LandPanel_Loaded(object sender, RoutedEventArgs e)
@@ -81,7 +74,7 @@ namespace СadastralBlockChain
                 return;
 
             WriteBlock.IsEnabled = selected.IsNew;
-            UpdateBlock(selected.IsNew ? _currentBlockData : selected.Block, selected.Cred, !selected.IsNew);
+            UpdateBlock(selected.IsNew ? _currentBlockData : selected.Block, !selected.IsNew);
         }
 
         private void WriteBlock_Click(object sender, RoutedEventArgs e)

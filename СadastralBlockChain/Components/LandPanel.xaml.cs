@@ -16,11 +16,10 @@ namespace СadastralBlockChain.Components
             InitializeComponent();
         }
 
-        public void LoadPanel(BlockData block, string cred, bool isReadOnly)
+        public void LoadPanel(BlockData block, bool isReadOnly)
         {
             _block = block;
             _isReadOnly = isReadOnly;
-            CredTextBox.Text = $"Подпись блока: {cred}";
             UpdateWorkPanel();
         }
 
@@ -32,7 +31,7 @@ namespace СadastralBlockChain.Components
             var ratio = new Ratio
             {
                 X = ActualWidth / _block.Width,
-                Y = WorkPanel.ActualHeight / _block.Height,
+                Y = ActualHeight / _block.Height,
             };
             grid.Children.Clear();
             grid.Children.Add(new LandBlock(_block.Model, ratio, _isReadOnly));
